@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/samples/" />
+  <Folder Name="/samples/01-single-agent-tool/">
+    <Project Path="samples/01-single-agent-tool/Sample01.SingleAgentTool.csproj" />
+  </Folder>
+  <Folder Name="/samples/02-workflow-handoff-approval/">
+    <Project Path="samples/02-workflow-handoff-approval/Sample02.WorkflowHandoffApproval.csproj" />
+  </Folder>
+  <Folder Name="/samples/03-workflow-checkpoints/">
+    <Project Path="samples/03-workflow-checkpoints/Sample03.WorkflowCheckpoints.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Aps.Agent.Tests/Aps.Agent.Tests.csproj" />
+    <Project Path="src/Aps.Agent/Aps.Agent.csproj" />
+  </Folder>
+</Solution>

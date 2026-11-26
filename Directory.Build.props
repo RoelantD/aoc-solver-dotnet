@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>latest</LangVersion>
+    <!-- Agent Framework marks some APIs experimental; opt in explicitly where used. -->
+    <NoWarn>$(NoWarn);MEAI001;MAAIW001;OPENAI001;AAIP001</NoWarn>
+  </PropertyGroup>
+</Project>

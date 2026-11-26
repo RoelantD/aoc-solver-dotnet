@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "aps-agent": {
+      "commandName": "Project",
+      "environmentVariables": { "ASPNETCORE_ENVIRONMENT": "Development" }
+    }
+  }
+}

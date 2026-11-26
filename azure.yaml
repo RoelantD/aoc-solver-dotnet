@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+# azd agent project: deploys src/Aps.Agent as a Microsoft Foundry hosted agent (code deploy, .NET 10, Invocations/AG-UI).
+# Per-environment values come from `azd env set` (never committed). See infra/README.md for the other infrastructure.
+name: aps-solver
+infra:
+    provider: microsoft.foundry
+services:
+    aps-solver:
+        host: azure.ai.agent
+        kind: hosted
+        language: csharp
+        name: aps-solver
+        project: src/Aps.Agent
+        hooks:
+            prepackage:
+                shell: pwsh
+                run: ../../scripts/hooks/package-props.ps1 -Mode copy
+            postdeploy:
+                shell: pwsh
+                run: ../../scripts/hooks/package-props.ps1 -Mode clean
+        codeConfiguration:
+            dependencyResolution: remote_build
+            entryPoint: Aps.Agent.dll
+            runtime: dotnet_10
+        container:
+            resources:
+                cpu: "1"
+                memory: 2Gi
+        protocols:
+            - protocol: invocations
+              version: 2.0.0
+        env:
+            WORKHORSE_DEPLOYMENT: gpt-6.1-sol
+            ESCALATION_DEPLOYMENT: claude-opus-5-5
+            # USD per 1M tokens, Global Standard pay-as-you-go (looked up 2026-11-25)
+            WORKHORSE_PRICE_INPUT_PER_MTOK: "2"
+            WORKHORSE_PRICE_OUTPUT_PER_MTOK: "10"
+            ESCALATION_PRICE_INPUT_PER_MTOK: "4"
+            ESCALATION_PRICE_OUTPUT_PER_MTOK: "20"
+            FOUNDRY_RESOURCE_NAME: aif-grunn
+            SESSIONS_POOL_ENDPOINT: ${SESSIONS_POOL_ENDPOINT}
+            COSMOS_ENDPOINT: ${COSMOS_ENDPOINT}
+            KEYVAULT_URI: ${KEYVAULT_URI}
+            AOC_CONTACT: ${AOC_CONTACT}
+        uses:
+            - proj-default
+    proj-default:
+        endpoint: https://aif-grunn.services.ai.azure.com/api/projects/proj-default
+        host: azure.ai.project
